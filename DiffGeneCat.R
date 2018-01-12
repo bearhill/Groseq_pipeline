@@ -1,0 +1,6 @@
+library(GenomicRanges)
+library(magrittr)
+library(ggplot2)
+library(data.table)
+library(RColorBrewer)
+library(stringr)
