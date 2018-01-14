@@ -37,11 +37,23 @@ attribute <- as.data.table(attribute) %>% `colnames<-`(str_replace_all(attribute
 coordinate$attribute <- NULL
 mcols(coordinate) <- cbind(mcols(coordinate), attribute)
 # Diff expression analysis (start from homer diff output) -----------------
-dif.exp <- fread(diff.file)
+
+groups <- c('siCTL','siCTL','siP400','siP400')
+groupn <- length(groups)
+min.exp <- 0.1
+#Starting parameter
+
+dif.exp <- fread('P400.countTable.txt')
 Info <- colnames(dif.exp)[1]
+
 dif.exp <- makeGRangesFromDataFrame(dif.exp[,-1],keep.extra.columns = T) %>% sort()
-dif.tb <- cbind(as.data.table(dif.exp),mcols(coordinate))
+dif.tb <- cbind(mcols(coordinate),as.data.table(dif.exp)) %>% as.data.table()
 
+total.reads <- tail(colnames(dif.tb),groupn) %>% str_extract('\\d+\\.0') %>% as.numeric() %>% sum()/1000000
+rpkm <- dif.tb[,tail(seq(ncol(dif.tb)),groupn),with=F] %>% rowSums()*1000/(dif.tb$width*total.reads)
+dif.tb <- dif.tb[rpkm >= min.exp, ]
+#rpkm for expression in all samples threshold.
 
-test <- DefExp('P400.countTable.txt',groups = c('siCTL','siCTL','siP400','siP400'),ref = 'siCTL')
-test <- makeGRangesFromDataFrame(test,keep.extra.columns = T) %>% sort()
+write.csv(dif.tb,'temp.csv',row.names = F)
+dif.tb <- DefExp('temp.csv',groups = c('siCTL','siCTL','siP400','siP400'),ref = 'siCTL')
+
