@@ -57,3 +57,18 @@ dif.tb <- dif.tb[rpkm >= min.exp, ]
 write.csv(dif.tb,'temp.csv',row.names = F)
 dif.tb <- DefExp('temp.csv',groups = c('siCTL','siCTL','siP400','siP400'),ref = 'siCTL')
 
+temp <- dif.tb
+temp$regulation <- 'NC'
+temp[padj < 0.05 & log2FoldChange > 0,]$regulation <- 'Increase'
+temp[padj < 0.05 & log2FoldChange < 0,]$regulation <- 'Decrease'
+
+
+test <- ggplot(temp,aes(x = gene_type, fill = regulation))
+test + geom_bar(width = 0.9)
+
+
+
+test + coord_polar()
+test <- ggplot(mtcars, aes(x = factor(cyl))) + geom_bar(width = 1, colour = "black")
+test + coord_polar()
+test + coord_polar()
