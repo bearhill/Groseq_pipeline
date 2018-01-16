@@ -194,13 +194,6 @@ FindCommonPeaks <- function(..., mincommon = 2){
 }
 save(FindCommonPeaks,file = 'FindCommonPeaks.rdata')
 
-Bed2GR <- function(file){
-  gr <- fread(file) %>% 
-    `colnames<-`(c('chr','start','end','name','value')) %>% 
-    makeGRangesFromDataFrame() %>% keepStandardChromosomes(pruning.mode = "coarse")
-  gr
-}
-save(Bed2GR, file = 'r.func/BED2GR.rdata')
 
 ImportBiopacks <- function(package){
   source("https://bioconductor.org/biocLite.R")
