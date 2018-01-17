@@ -1,5 +1,11 @@
+# Read arguments---------------------------------------------------------------
 
-# Library -----------------------------------------------------------------
+counttable.raw.file <-  'TIP60.raw.counttable.txt'
+coordinate.file <-  'coordinates/Hela.transcripts.all.gtf'
+groups <- c('siCTL','siCTL','siTIP60','siTIP60')
+groupn <- length(groups)
+min.rpkm <- 0.1
+# Load packages and functions needed ---------------------------------------------------
 library(GenomicRanges)
 library(magrittr)
 library(ggplot2)
@@ -7,42 +13,42 @@ library(data.table)
 library(RColorBrewer)
 library(stringr)
 
-# Functions ---------------------------------------------------------------
-load('r.func/ImportBiopacks.rdata')
+for(i in list.files('r.func/')){
+  load(paste0('r.func/',i))
+}
 
-diff.file = 'TIP60.diffoutput.txt'
-coordinate.file = 'coordinates/gencode.v19.annotation.geneonly.gtf'
+# Change transcripts to GR -------------------------------------------------
+transcripts.gr <- GTF2GR('coordinates/Hela.transcripts.all.gtf')
 
+# Read raw counttable -----------------------------------------------------
 
-# Change coordinate to GR -------------------------------------------------
-coordinate <- GTF2GR('coordinates/Hela.transcripts.all.gtf')
-# Diff expression analysis (start from homer diff output) -----------------
+counttable <- fread(counttable.raw.file)
+Info <- colnames(counttable)[1]
 
-groups <- c('siCTL','siCTL','siTIP60','siTIP60')
-groupn <- length(groups)
-min.exp <- 0.1
-#Starting parameter
+# combine coordinate info
+counttable <- makeGRangesFromDataFrame(counttable[,-1],keep.extra.columns = T) %>% sort()
+counttable <- cbind(as.data.table(transcripts.gr),mcols(counttable)[,tail(seq(ncol(mcols(counttable))),groupn)]) %>% as.data.table()
 
-dif.exp <- fread('TIP60.raw.counttable.txt')
-Info <- colnames(dif.exp)[1]
+# select major gene_type.
+total.reads <- tail(colnames(counttable),groupn) %>% str_extract('\\d+\\.0') %>% as.numeric() %>% sum()
 
-dif.exp <- makeGRangesFromDataFrame(dif.exp[,-1],keep.extra.columns = T) %>% sort()
-dif.tb <- cbind(mcols(coordinate),as.data.table(dif.exp)) %>% as.data.table()
+temp <- counttable[,c(tail(colnames(counttable),groupn)),with = F] %>% rowSums()
+genetype.info <- data.table(reads=temp,gene_type = counttable$gene_type)
+genetype.info <- genetype.info[,.(readsperc= sum(reads)*100/total.reads,
+                                  count=.N),by = gene_type]
+genetype.info <- genetype.info[order(readsperc)]
 
+# draw pie plot of gene_type.
+genetype.major <- genetype.info[readsperc > 0.001,]$gene_type
+genetype.info <- genetype.info[gene_type %in% genetype.major,]
+genetype.info <- rbind(genetype.info,list('other',100-sum(genetype.info$readsperc),0))
+genetype.info$gene_type <- factor(genetype.info$gene_type,levels = genetype.info$gene_type)
+pie(genetype.info$readsperc, genetype.info$gene_type,clockwise = T, init.angle = 90)
 
+p <- ggplot(genetype.info,aes(x='',y=readsperc, fill = gene_type))
+p + geom_bar(stat = 'identity') + coord_polar(theta = 'y')
 
-#Summary genetype.info
-total.reads <- tail(colnames(dif.tb),groupn) %>% str_extract('\\d+\\.0') %>% as.numeric() %>% sum()
-reads <- dif.tb[,c(tail(colnames(dif.tb),groupn)),with = F] %>% rowSums()
-genetype.info <- data.table(reads=reads,gene_type = dif.tb$gene_type)
-genetype.info <- genetype.info[,.(sumreads= sum(reads)*100/total.reads),by = gene_type]
-
-temp <- table(dif.tb$gene_type)
-temp <- data.table(count = as.numeric(temp), gene_type = names(temp))
-genetype.info <- merge(genetype.info,temp)
-genetype.major <- genetype.info[count > 200,]$gene_type
-
-dif.tb <- dif.tb[gene_type %in% genetype.major,]
+###################################################################stoped here
 
 #Differential expressed
 rpkm <- dif.tb[,tail(seq(ncol(dif.tb)),groupn),with=F] %>% rowSums()*1000*1000000/(dif.tb$width*total.reads)
