@@ -43,20 +43,26 @@ genetype.major <- genetype.info[readsperc > 0.001,]$gene_type
 genetype.info <- genetype.info[gene_type %in% genetype.major,]
 genetype.info <- rbind(list('other',100-sum(genetype.info$readsperc),0),genetype.info)
 genetype.info$gene_type <- factor(genetype.info$gene_type,levels = genetype.info$gene_type)
+genetype.info[gene_type == 'other',count:=NA]
 
-p <- ggplot(genetype.info,aes(x='',y=readsperc, fill = gene_type))
-p + geom_bar(stat = 'identity',width = 1) + 
-  coord_polar(theta = 'y', start = 0) + 
-  scale_fill_manual(values = rev(c(brewer.pal(9,'Set1'),brewer.pal(nrow(genetype.info)-10,'Set3'),'grey50')))+
-  theme_xf +
-  theme(axis.ticks = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.line = element_blank())
 library(plotly)
+plot.table <- genetype.info
+plot.table$gene_type <- paste0(plot.table$gene_type,'(',plot.table$count,')')
+p <- plot_ly(plot.table,labels = ~gene_type, values = ~readsperc, type = 'pie', 
+             textposition = 'outside',
+             textinfo = 'percent',
+             marker = list(colors = colors,
+                           line = list(color = '#FFFFFF',
+                                       width = 1)))
+p <- layout(p,
+       title = 'Distribution of GRO-seq reads on genomic elements',
+       margin = list(l=100,t=80,b=50),
+       showlegend = T)
+plotly_IMAGE(p, width = 700, height = 700, out_file = 'figures/GRO-seq_reads_distribution.png')
 
-p <- plotly(genetype.info,labels = ~ gene_type, values = ~readsperc, type = 'pie', textposition = 'outside')
-  
+#If error, need:
+#Sys.setenv("plotly_username"="Feng_Xiong") 
+#Sys.setenv("plotly_api_key"="cKUazDNFFbwzc7m8EGdj")
 
 ###################################################################stoped here
 
