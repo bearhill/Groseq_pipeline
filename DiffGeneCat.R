@@ -41,12 +41,22 @@ genetype.info <- genetype.info[order(readsperc)]
 # draw pie plot of gene_type.
 genetype.major <- genetype.info[readsperc > 0.001,]$gene_type
 genetype.info <- genetype.info[gene_type %in% genetype.major,]
-genetype.info <- rbind(genetype.info,list('other',100-sum(genetype.info$readsperc),0))
+genetype.info <- rbind(list('other',100-sum(genetype.info$readsperc),0),genetype.info)
 genetype.info$gene_type <- factor(genetype.info$gene_type,levels = genetype.info$gene_type)
-pie(genetype.info$readsperc, genetype.info$gene_type,clockwise = T, init.angle = 90)
 
 p <- ggplot(genetype.info,aes(x='',y=readsperc, fill = gene_type))
-p + geom_bar(stat = 'identity') + coord_polar(theta = 'y')
+p + geom_bar(stat = 'identity',width = 1) + 
+  coord_polar(theta = 'y', start = 0) + 
+  scale_fill_manual(values = rev(c(brewer.pal(9,'Set1'),brewer.pal(nrow(genetype.info)-10,'Set3'),'grey50')))+
+  theme_xf +
+  theme(axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.line = element_blank())
+library(plotly)
+
+p <- plotly(genetype.info,labels = ~ gene_type, values = ~readsperc, type = 'pie', textposition = 'outside')
+  
 
 ###################################################################stoped here
 
