@@ -63,8 +63,8 @@ p
 plotly_IMAGE(p, width = 700, height = 700, out_file = 'figures/GRO-seq_reads_distribution.png')
 
 #If error, need:
-#Sys.setenv("plotly_username"="Feng_Xiong") 
-#Sys.setenv("plotly_api_key"="cKUazDNFFbwzc7m8EGdj")
+Sys.setenv("plotly_username"="Feng_Xiong") 
+Sys.setenv("plotly_api_key"="cKUazDNFFbwzc7m8EGdj")
 
 
 #Draw expressed percentage.
@@ -115,21 +115,80 @@ plot + geom_bar(width = 0.9) + theme_xf + theme(axis.text.x = element_text(angle
           plot.title = element_text(hjust = 0.5))
 ggsave('figures/dif_expressed_transcripts_siTIP60.jpg', width = 6, height = 6, dpi =150, units = 'in')
 
+
+# Write Increased/decreased genes to bed ----------------------------------
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'NC',] %>% makeGRangesFromDataFrame()
+GR2BED(temp,'coordinates/NC_genes_siTIP60.bed')
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Increase',] %>% makeGRangesFromDataFrame()
+GR2BED(temp,'coordinates/Increase_genes_siTIP60.bed')
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Decrease',] %>% makeGRangesFromDataFrame()
+GR2BED(temp,'coordinates/Decrease_genes_siTIP60.bed')
+
+temp <- res.deseq2[gene_type == 'enhancer' & regulation == 'NC',] %>% makeGRangesFromDataFrame()
+GR2BED(temp,'coordinates/NC_enhancer_siTIP60.bed')
+temp <- res.deseq2[gene_type == 'enhancer' & regulation == 'Increase',] %>% makeGRangesFromDataFrame()
+GR2BED(temp,'coordinates/Increase_enhancer_siTIP60.bed')
+temp <- res.deseq2[gene_type == 'enhancer' & regulation == 'Decrease',] %>% makeGRangesFromDataFrame()
+GR2BED(temp,'coordinates/Decrease_enhancer_siTIP60.bed')
+
+
+
 # Differential gene analysis ----------------------------------------------
 hk_gene <- fread('misc/HK_genes.txt',header = F) %>% `colnames<-`(c('gene_name','refseq'))
 hk_gene$housekp <- 'housekeeping'
 res.deseq2 <- merge(res.deseq2,hk_gene,all.x = T)
-res.deseq2[is.na(refseq),housekp := 'other']
+res.deseq2[is.na(refseq),housekp := 'regulated gene']
 
 library(plotly)
-plot.table <- res.deseq2[gene_type == 'protein_coding',][,.N,by=housekp]
-p <- plot_ly(res.deseq2[gene_type == 'protein_coding',],labels = ~housekp, type = 'pie', 
+plot.table <- res.deseq2[gene_type == 'protein_coding',][,.N,by=.(housekp)]
+p <- plot_ly(plot.table,labels = ~housekp,values= ~N, type = 'pie', 
              textposition = 'inside',
-             textinfo = 'label',
+             textinfo = 'value+label+percent',
+             insidetextfont = list(color = '#FFFFFF',
+                                   size = 20),
              marker = list(colors = colors,
                            line = list(color = '#FFFFFF',
                                        width = 1)))
-layout(p,
-            margin = list(l=100,t=80,b=50),
-            showlegend = T)
-p
+p <- layout(p, title = 'All expressing genes',
+       font = list(size =20),
+       margin = list(t=100)
+       )
+plotly_IMAGE(p, width = 600, height = 800,format = 'png', out_file = 'figures/All_expressed_hkgenes.png')
+
+
+plot.table <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Decrease',][,.N,by=.(housekp)]
+p <- plot_ly(plot.table,labels = ~housekp,values= ~N, type = 'pie', 
+             textposition = 'inside',
+             textinfo = 'value+label+percent',
+             insidetextfont = list(color = '#FFFFFF',
+                                   size = 20),
+             marker = list(colors = colors,
+                           line = list(color = '#FFFFFF',
+                                       width = 1)))
+p <- layout(p, title = 'Genes decreased by siTIP60',
+            font = list(size =20),
+            margin = list(t=100)
+)
+plotly_IMAGE(p, width = 600, height = 800,format = 'png', out_file = 'figures/Genes_decreased_hkgenes.png')
+
+
+
+plot.table <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Increase',][,.N,by=.(housekp)]
+p <- plot_ly(plot.table,labels = ~housekp,values= ~N, type = 'pie', 
+             textposition = 'inside',
+             textinfo = 'value+label+percent',
+             insidetextfont = list(color = '#FFFFFF',
+                                   size = 20),
+             marker = list(colors = colors,
+                           line = list(color = '#FFFFFF',
+                                       width = 1)))
+p <- layout(p, title = 'Genes increased by siTIP60',
+            font = list(size =20),
+            margin = list(t=100)
+)
+plotly_IMAGE(p, width = 600, height = 800,format = 'png', out_file = 'figures/Genes_increased_hkgenes.png')
+
+
+# GO analysis of increase/decresed genes ----------------------------------
+
+
