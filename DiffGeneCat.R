@@ -247,7 +247,28 @@ p <- ggplot(plot.table,aes(x= exon.n, y = log2FoldChange))
 p + geom_boxplot()
 
 test <- plot.table[,.(.N,Mean = median(log2FoldChange),SD = sd(log2FoldChange)), by = exon.n]
-test[,se:= SD/sqrt()]
+test[,se:= SD/sqrt(N)]
+p <- ggplot(test, aes(x = exon.n, y = Mean)) 
+
+p + geom_point() + geom_errorbar(aes(ymin = Mean-se, ymax = Mean + se),width = .2) +
+  geom_text(aes(label = N, y = Mean+se-0.01),vjust = -3,size = 3) +
+  geom_hline(yintercept = 0)+
+  labs(y = 'log2 Fold change (Mean ± SE)', x = 'Exon number', title = 'Genexpresion (siTIP60 vs siCTL)') +
+  theme_xf +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave(filename = 'figures/Gene_expression_exon.jpg', width = 10, height = 8, dpi = 150, units = 'in')
+
+#length
+p <- ggplot(plot.table, aes(x = width, y = log2FoldChange))
+p + geom_point(alpha = 0.1) + 
+  scale_x_continuous(trans = 'log10', breaks = c(500,1000,10000,100000,1000000), labels = c('500','1k','10k','100k','1M'))+
+  geom_smooth(method = 'lm') +
+  labs(x = 'Gene length (bp)',title = 'Gene expression (siTIP60 vs siCTL)')+
+  theme_xf +
+  theme(plot.title = element_text(hjust = 0.5))
+ggsave(filename = 'figures/Gene_expression_length.jpg', width = 10, height = 8, dpi = 150, units = 'in')
+
 
 # Differential gene analysis ----------------------------------------------
 hk_gene <- fread('misc/HK_genes.txt',header = F) %>% `colnames<-`(c('gene_name','refseq'))
