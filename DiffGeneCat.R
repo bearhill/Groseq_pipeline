@@ -152,8 +152,9 @@ ChIPPlotonTemp <- function(temp,antibody,inputfix,name,figurefile){
   ggsave(figurefile, height = 6, width = 8, dpi = 150, units = 'in')
 }
 #NC_coding_genes
-temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'NC',] %>% makeGRangesFromDataFrame()
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'NC' & seqnames != 'chrM',] %>% makeGRangesFromDataFrame()
 GR2BED(temp,'coordinates/NC_genes_siTIP60.bed')
+GR2BED(flank(temp,1000, both = T), 'coordinates/NC_TSS_siTIP60.bed')
 
 GROPlotonTemp(temp,'NC_genes','NC_protein_coding_genes','figures/GRO-seq_on_NC_protein_coding.jpg')
 ChIPPlotonTemp(temp,'H3K27ac','NC_genes','H3K27ac_NC_protein_coding_genes','figures/H3K27ac_on_NC_protein_coding.jpg')
@@ -161,16 +162,19 @@ ChIPPlotonTemp(temp,'H3K4me1','NC_genes','H3K4me1_NC_protein_coding_genes','figu
 ChIPPlotonTemp(temp,'Pol2','NC_genes','Pol2_NC_protein_coding_genes','figures/Pol2_on_NC_protein_coding.jpg')
 
 #Increase_coding_genes
-temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Increase',] %>% makeGRangesFromDataFrame()
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Increase' & seqnames != 'chrM',] %>% makeGRangesFromDataFrame()
 GR2BED(temp,'coordinates/Increase_genes_siTIP60.bed')
+GR2BED(flank(temp,1000, both = T), 'coordinates/Increase_TSS_siTIP60.bed')
 
 GROPlotonTemp(temp,'Increase_genes','Increased_protein_coding_genes','figures/GRO-seq_on_increase_protein_coding.jpg')
 ChIPPlotonTemp(temp,'H3K27ac','Increase_genes','H3K27ac_Increase_protein_coding_genes','figures/H3K27ac_on_Increase_protein_coding.jpg')
 ChIPPlotonTemp(temp,'H3K4me1','Increase_genes','H3K4me1_Increase_protein_coding_genes','figures/H3K4me1_on_Increase_protein_coding.jpg')
 ChIPPlotonTemp(temp,'Pol2','Increase_genes','Pol2_Increase_protein_coding_genes','figures/Pol2_on_Increase_protein_coding.jpg')
 
-temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Decrease',] %>% makeGRangesFromDataFrame()
+#Decrease_coding_genes
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Decrease' & seqnames != 'chrM',] %>% makeGRangesFromDataFrame()
 GR2BED(temp,'coordinates/Decrease_genes_siTIP60.bed')
+GR2BED(flank(temp,1000, both = T), 'coordinates/Decrease_TSS_siTIP60.bed')
 
 GROPlotonTemp(temp,'Decrease_genes','Decreased_protein_coding_genes','figures/GRO-seq_on_decrease_protein_coding.jpg')
 ChIPPlotonTemp(temp,'H3K27ac','Decrease_genes','H3K27ac_Decrease_protein_coding_genes','figures/H3K27ac_on_Decrease_protein_coding.jpg')
@@ -178,7 +182,7 @@ ChIPPlotonTemp(temp,'H3K4me1','Decrease_genes','H3K4me1_Decrease_protein_coding_
 ChIPPlotonTemp(temp,'Pol2','Decrease_genes','Pol2_Decrease_protein_coding_genes','figures/Pol2_on_Decrease_protein_coding.jpg')
 
 
-
+#Enhancer part.
 GROPlotonTemp <- function(gr,inputfix,name,figurefile){
   Direction2Gene(paste0('matrix/Hela-siCTL-rpt1-GROpos_',inputfix,'_scaled.mx'),
                  paste0('matrix/Hela-siCTL-rpt1-GROneg_',inputfix,'_scaled.mx'),
@@ -198,19 +202,99 @@ GROPlotonTemp <- function(gr,inputfix,name,figurefile){
     theme(plot.title = element_text(hjust = 0.5))
   ggsave(figurefile, height = 6, width = 8, dpi = 150, units = 'in')
 }
+
+ChIPPlotonTemp <- function(temp,antibody,inputfix,name,figurefile){
+  siCTL.mx <- ReadMatrix(paste0('matrix/Hela-',antibody,'-SC-siCTL_',inputfix,'_scaled.mx'))
+  siTIP60.mx <- ReadMatrix(paste0('matrix/Hela-',antibody,'-SC-siTIP60_',inputfix,'_scaled.mx'))
+  index <- as.data.table(temp)$seqnames != 'chrM'
+  plot.dt <- data.table(siCTL = colSums(siCTL.mx[index,])/length(temp[index]),
+                        siTIP60 = colSums(siTIP60.mx[index,])/length(temp[index]))
+  MxProfilePlot(plot.dt, breaks =c(1,61,120),labels = c('-1.5kb','center','1.5kb')) +
+    scale_color_manual(values = c('firebrick2','royalblue2'))+
+    labs(title = name) +
+    theme(plot.title = element_text(hjust = 0.5))
+  ggsave(figurefile, height = 6, width = 8, dpi = 150, units = 'in')
+}
 temp <- res.deseq2[gene_type == 'enhancer' & regulation == 'NC',] %>% makeGRangesFromDataFrame()
 GR2BED(temp,'coordinates/NC_enhancer_siTIP60.bed')
 GROPlotonTemp(temp,'NC_enhancer','NC_enhancer_eRNAs','figures/GRO-seq_on_NC_enhancers.jpg')
+ChIPPlotonTemp(temp,'H3K27ac','NC_enhancer','H3K27ac_NC_enhancer_eRNAs','figures/H3K27ac_on_NC_enhancers.jpg')
+ChIPPlotonTemp(temp,'H3K4me1','NC_enhancer','H3K4me1_NC_enhancer_eRNAs','figures/H3K4me1_on_NC_enhancers.jpg')
+ChIPPlotonTemp(temp,'Pol2','NC_enhancer','Pol2_NC_enhancer_eRNAs','figures/Pol2_on_NC_enhancers.jpg')
+
 
 temp <- res.deseq2[gene_type == 'enhancer' & regulation == 'Increase',] %>% makeGRangesFromDataFrame()
 GR2BED(temp,'coordinates/Increase_enhancer_siTIP60.bed')
+GROPlotonTemp(temp,'Increase_enhancer','Increase_enhancer_eRNAs','figures/GRO-seq_on_Increase_enhancers.jpg')
+ChIPPlotonTemp(temp,'H3K27ac','Increase_enhancer','H3K27ac_Increase_enhancer_eRNAs','figures/H3K27ac_on_Increase_enhancers.jpg')
+ChIPPlotonTemp(temp,'H3K4me1','Increase_enhancer','H3K4me1_Increase_enhancer_eRNAs','figures/H3K4me1_on_Increase_enhancers.jpg')
+ChIPPlotonTemp(temp,'Pol2','Increase_enhancer','Pol2_Increase_enhancer_eRNAs','figures/Pol2_on_Increase_enhancers.jpg')
 
 GROPlotonTemp(temp,'Increase_enhancer','Increase_enhancer_eRNAs','figures/GRO-seq_on_increase_enhancers.jpg')
 
 
 temp <- res.deseq2[gene_type == 'enhancer' & regulation == 'Decrease',] %>% makeGRangesFromDataFrame()
 GR2BED(temp,'coordinates/Decrease_enhancer_siTIP60.bed')
-GROPlotonTemp(temp,'Decrease_enhancer','Decrease_enhancer_eRNAs','figures/GRO-seq_on_decrease_enhancers.jpg')
+GROPlotonTemp(temp,'Decrease_enhancer','Decrease_enhancer_eRNAs','figures/GRO-seq_on_Decrease_enhancers.jpg')
+ChIPPlotonTemp(temp,'H3K27ac','Decrease_enhancer','H3K27ac_Decrease_enhancer_eRNAs','figures/H3K27ac_on_Decrease_enhancers.jpg')
+ChIPPlotonTemp(temp,'H3K4me1','Decrease_enhancer','H3K4me1_Decrease_enhancer_eRNAs','figures/H3K4me1_on_Decrease_enhancers.jpg')
+ChIPPlotonTemp(temp,'Pol2','Decrease_enhancer','Pol2_Decrease_enhancer_eRNAs','figures/Pol2_on_Decrease_enhancers.jpg')
+
+
+###TSS part
+GROPlotonTemp <- function(gr,inputfix,name,figurefile){
+  Direction2Gene(paste0('matrix/Hela-siCTL-rpt1-GROpos_',inputfix,'_scaled.mx'),
+                 paste0('matrix/Hela-siCTL-rpt1-GROneg_',inputfix,'_scaled.mx'),
+                 temp,'siCTL-rpt1')
+  
+  Direction2Gene(paste0('matrix/Hela-siTIP60-rpt1-GROpos_',inputfix,'_scaled.mx'),
+                 paste0('matrix/Hela-siTIP60-rpt1-GROneg_',inputfix,'_scaled.mx'),
+                 temp,'siTIP60-rpt1')
+  
+  index <- as.data.table(temp)$seqnames != 'chrM'
+  plot.dt <- data.table(siCTL = colSums(`siCTL-rpt1.sense.mx`[index,])/length(temp[index]),
+                        siCTL_AS = -colSums(`siCTL-rpt1.antisense.mx`[index,])/length(temp[index]),
+                        siTIP60 = colSums(`siTIP60-rpt1.sense.mx`[index,])/length(temp[index]),
+                        siTIP_AS = -colSums(`siTIP60-rpt1.antisense.mx`[index,])/length(temp[index]))
+  MxProfilePlot(plot.dt, breaks =c(1,41,240),labels = c('-1kb','TSS','5kb')) +
+    scale_color_manual(values = c('firebrick2','firebrick3','royalblue2','royalblue3'))+
+    labs(title = name) +
+    theme(plot.title = element_text(hjust = 0.5))
+  ggsave(figurefile, height = 6, width = 8, dpi = 150, units = 'in')
+}
+ChIPPlotonTemp <- function(temp,antibody,inputfix,name,figurefile){
+  siCTL.mx <- ReadMatrix(paste0('matrix/Hela-',antibody,'-SC-siCTL_',inputfix,'_scaled.mx'))
+  siTIP60.mx <- ReadMatrix(paste0('matrix/Hela-',antibody,'-SC-siTIP60_',inputfix,'_scaled.mx'))
+  index <- as.data.table(temp)$seqnames != 'chrM'
+  plot.dt <- data.table(siCTL = colSums(siCTL.mx[index,])/length(temp[index]),
+                        siTIP60 = colSums(siTIP60.mx[index,])/length(temp[index]))
+  MxProfilePlot(plot.dt,breaks =c(1,41,240),labels = c('-1kb','TSS','5kb')) +
+    scale_color_manual(values = c('firebrick2','royalblue2'))+
+    labs(title = name) +
+    theme(plot.title = element_text(hjust = 0.5))
+  ggsave(figurefile, height = 6, width = 8, dpi = 150, units = 'in')
+}
+#NC_coding_genes
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'NC' & seqnames != 'chrM',] %>% makeGRangesFromDataFrame()
+
+GROPlotonTemp(temp,'NC_TSS','NC_protein_coding_genes','figures/GRO-seq_on_NC_TSS.jpg')
+ChIPPlotonTemp(temp,'H3K27ac','NC_TSS','H3K27ac_NC_protein_coding_genes','figures/H3K27ac_on_NC_TSS.jpg')
+ChIPPlotonTemp(temp,'H3K4me1','NC_TSS','H3K4me1_NC_protein_coding_genes','figures/H3K4me1_on_NC_TSS.jpg')
+ChIPPlotonTemp(temp,'Pol2','NC_TSS','Pol2_NC_protein_coding_genes','figures/Pol2_on_NC_TSS.jpg')
+
+#Increase_coding_genes
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Increase' & seqnames != 'chrM',] %>% makeGRangesFromDataFrame()
+GROPlotonTemp(temp,'Increase_TSS','Increase_protein_coding_genes','figures/GRO-seq_on_Increase_TSS.jpg')
+ChIPPlotonTemp(temp,'H3K27ac','Increase_TSS','H3K27ac_Increase_protein_coding_genes','figures/H3K27ac_on_Increase_TSS.jpg')
+ChIPPlotonTemp(temp,'H3K4me1','Increase_TSS','H3K4me1_Increase_protein_coding_genes','figures/H3K4me1_on_Increase_TSS.jpg')
+ChIPPlotonTemp(temp,'Pol2','Increase_TSS','Pol2_Increase_protein_coding_genes','figures/Pol2_on_Increase_TSS.jpg')
+
+#Decrease_coding_genes
+temp <- res.deseq2[gene_type == 'protein_coding' & regulation == 'Decrease' & seqnames != 'chrM',] %>% makeGRangesFromDataFrame()
+GROPlotonTemp(temp,'Decrease_TSS','Decrease_protein_coding_genes','figures/GRO-seq_on_Decrease_TSS.jpg')
+ChIPPlotonTemp(temp,'H3K27ac','Decrease_TSS','H3K27ac_Decrease_protein_coding_genes','figures/H3K27ac_on_Decrease_TSS.jpg')
+ChIPPlotonTemp(temp,'H3K4me1','Decrease_TSS','H3K4me1_Decrease_protein_coding_genes','figures/H3K4me1_on_Decrease_TSS.jpg')
+ChIPPlotonTemp(temp,'Pol2','Decrease_TSS','Pol2_Decrease_protein_coding_genes','figures/Pol2_on_Decrease_TSS.jpg')
 
 # Differences in Gene fetures_length_exons --------------------------------
 #RPKM
@@ -327,5 +411,74 @@ plotly_IMAGE(p, width = 600, height = 800,format = 'png', out_file = 'figures/Ge
 
 
 # GO analysis of increase/decresed genes ----------------------------------
+#Wait
+
+
+
+# Nearest -----------------------------------------------------------------
+enhancers <- res.deseq2[gene_type == 'enhancer',] %>% makeGRangesFromDataFrame(keep.extra.columns = T)
+genes <- res.deseq2[gene_type == 'protein_coding',] %>% makeGRangesFromDataFrame(keep.extra.columns = T)
+
+temp <- genes[unique(nearest(enhancers[enhancers$regulation == 'NC'],genes))]$regulation %>% table
+temp1 <- genes[unique(nearest(enhancers[enhancers$regulation == 'Increase'],genes))]$regulation %>% table
+temp2 <- genes[unique(nearest(enhancers[enhancers$regulation == 'Decrease'],genes))]$regulation %>% table
+count <- rbind(NC.e = temp, Increase.e = temp1, Decrease.e = temp2) %>% as.data.table()
+count[,`:=`(enhancer = c('NC','Increase','Decrease') , sum = rowSums(count)/100)]
+count[,`:=`(Increase = round(Increase/sum,2),
+            Decrease = round(Decrease/sum,2),
+            NC = round(NC/sum,2))]
+count <- melt(count, id.vars = c('enhancer','sum'))
+count[,`:=`(enhancer = factor(enhancer, levels = c('Increase','NC','Decrease')),
+            variable = factor(variable, levels = c('Increase','NC','Decrease')))]
+p <- ggplot(count, aes(x = enhancer,y=value, fill = variable, label = sum*100))
+p + geom_bar(stat = 'identity',width = 0.5) +
+  geom_text(y = 100, vjust = 0.15, size = 5) + theme_xf +
+  labs(x = NULL, y = 'percentage', title = 'Change of gene near enhancers') +
+  scale_x_discrete(labels = c('Genes near \n increase enhancer',
+                              'Genes near \n NC enhancer',
+                              'Genes near \n Decrease enhancer')) 
+ggsave(filename = 'figures/Genes_near_enhancers.jpg', width = 8, height = 8, dpi = 150, units = 'in')
+
+# ChIAPET_analysis --------------------------------------------------------
+interaction <- fread('coordinates/Hela_hg19.ChromatinInteractons.bed', sep = '\t', header = F)
+interaction <- interaction$V4 %>% unique()
+interaction.left <- str_extract(interaction,'.*-')
+interaction.left <- data.table(chr = str_replace(str_extract(interaction.left, 'chr.*:'),':',''),
+                               start = str_replace(str_extract(interaction.left,':\\d*'),":",""),
+                               end = str_replace(str_extract(interaction.left,'\\d*-'),"-","")) %>% makeGRangesFromDataFrame()
+interaction.right <- str_extract(interaction,'-.*')
+interaction.right <- data.table(chr = str_replace(str_extract(interaction.left, 'chr.*:'),':',''),
+                               start = str_replace(str_extract(interaction.right,':\\d*'),":",""),
+                               end = str_replace(str_extract(interaction.right,'\\d*,'),",","")) %>% makeGRangesFromDataFrame()
+count <- data.table(left = rep(NA,length(interaction.left)), right = rep(NA, length(interaction.right)))
+count$left[unique(from(findOverlaps(interaction.left,enhancers)))] <- 'E'
+count$left[unique(from(findOverlaps(interaction.left,promoters(genes))))] <- 'P'
+count$right[unique(from(findOverlaps(interaction.right,enhancers)))] <- 'E'
+count$right[unique(from(findOverlaps(interaction.right,promoters(genes))))] <- 'P'
+count[,type:=paste0(left,'-',right)]
+count[type == 'P-E', type:= 'E-P']
+count[type == 'NA-P', type:= 'P-NA']
+count[type == 'NA-E', type:= 'E-NA']
+
+
+library(plotly)
+plot.table <- count[,.(.N),by = type]
+colnames(plot.table) <- c('type','count')
+plot.table$type <- factor(plot.table$type,levels = c('E-P','E-E','P-P','E-NA','P-NA','NA-NA'))
+p <- plot_ly(plot.table,labels = ~type, values = ~count, type = 'pie', 
+             textposition = 'outside',
+             textinfo = 'percent+label+value',
+             marker = list(colors = colors,
+                           line = list(color = '#FFFFFF',
+                                       width = 1)))
+p <- layout(p,
+            title = 'type of ChIA-PET interactions',
+            margin = list(l=100,t=80,b=100),
+            showlegend = T)
+p
+plotly_IMAGE(p, width = 700, height = 700, out_file = 'figures/ChIA-PET_interaction.png')
+
+
+# ChIA-PET E-P interaction ------------------------------------------------
 
 
