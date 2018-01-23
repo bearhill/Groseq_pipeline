@@ -337,7 +337,7 @@ p <- ggplot(test, aes(x = exon.n, y = Mean))
 p + geom_point() + geom_errorbar(aes(ymin = Mean-se, ymax = Mean + se),width = .2) +
   geom_text(aes(label = N, y = Mean+se-0.01),vjust = -3,size = 3) +
   geom_hline(yintercept = 0)+
-  labs(y = 'log2 Fold change (Mean ± SE)', x = 'Exon number', title = 'Genexpresion (siTIP60 vs siCTL)') +
+  labs(y = 'log2 Fold change (Mean ? SE)', x = 'Exon number', title = 'Genexpresion (siTIP60 vs siCTL)') +
   theme_xf +
   theme(plot.title = element_text(hjust = 0.5))
 
@@ -480,5 +480,16 @@ plotly_IMAGE(p, width = 700, height = 700, out_file = 'figures/ChIA-PET_interact
 
 
 # ChIA-PET E-P interaction ------------------------------------------------
+count <- data.table(left = rep(NA,length(interaction.left)), right = rep(NA, length(interaction.right)))
+count$left[unique(from(findOverlaps(interaction.left,enhancers)))] <- 'E'
+count$left[unique(from(findOverlaps(interaction.left,promoters(genes))))] <- 'P'
+count$right[unique(from(findOverlaps(interaction.right,enhancers)))] <- 'E'
+count$right[unique(from(findOverlaps(interaction.right,promoters(genes))))] <- 'P'
+count[,type:=paste0(left,'-',right)]
+EPinteraction.e <- interaction.left[count$type == 'E-P'] %>% c(interaction.right[count$type == 'P-E'])
+EPinteraction.p <- interaction.right[count$type == 'E-P'] %>% c(interaction.left[count$type == 'P-E'])
 
-
+temp <- findOverlaps(EPinteraction.e,enhancers)
+temp1 <- data.table(interaction.e = from(temp),e.regulation = enhancers$regulation[to(temp)])
+temp <- findOverlaps(EPinteraction.e,enhancers)
+temp1 <- data.table(interaction.e = from(temp),g.regulation = enhancers$regulation[to(temp)])
