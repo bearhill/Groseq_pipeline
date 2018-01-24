@@ -438,10 +438,11 @@ count[,`:=`(enhancer = factor(enhancer, levels = c('Increase','NC','Decrease')),
 p <- ggplot(count, aes(x = enhancer,y=value, fill = variable, label = sum*100))
 p + geom_bar(stat = 'identity',width = 0.5) +
   geom_text(y = 100, vjust = 0.15, size = 5) + theme_xf +
-  labs(x = NULL, y = 'percentage', title = 'Change of gene near enhancers') +
+  labs(x = NULL, y = 'percentage', title = 'Change of enhancer neighbor genes') +
   scale_x_discrete(labels = c('Genes near \n increase enhancer',
                               'Genes near \n NC enhancer',
-                              'Genes near \n Decrease enhancer')) 
+                              'Genes near \n Decrease enhancer')) +
+  scale_fill_manual(values = c('firebrick3','grey50','royalblue3'))
 ggsave(filename = 'figures/Genes_near_enhancers.jpg', width = 8, height = 8, dpi = 150, units = 'in')
 
 # ChIAPET_analysis --------------------------------------------------------
@@ -515,7 +516,9 @@ p + geom_bar(stat = 'identity', width = 0.5) + geom_text(aes(y=101,label = sum),
   labs(x = NULL, y = 'percentage', title = 'Change of gene targeted by enhancers') +
   scale_x_discrete(labels = c('Genes targeted by \n increase enhancer',
                               'Genes targeted by \n NC enhancer',
-                              'Genes targeted by \n Decrease enhancer'))
+                              'Genes targeted by \n Decrease enhancer'))+
+  scale_fill_manual(values = c('firebrick3','grey50','royalblue3'))
+
 ggsave(filename = 'figures/Genes_targeted_by_enhancer_ChiAPET.jpg', width = 8, height = 8, dpi = 150, units = 'in')
 
 
