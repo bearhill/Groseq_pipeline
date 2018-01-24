@@ -1,0 +1,568 @@
+Gene Symbol	Role in Cancer
+ABI1	"TSG, fusion"
+ABL1	"oncogene, fusion"
+ABL2	"oncogene, fusion"
+ACKR3	"oncogene, fusion"
+ACSL3	fusion
+ACVR1	oncogene
+ACVR2A	TSG
+AFF1	fusion
+AFF3	"oncogene, fusion"
+AFF4	"oncogene, fusion"
+AKT1	oncogene
+AKT2	oncogene
+ALK	"oncogene, fusion"
+AMER1	TSG
+APC	TSG
+APOBEC3B	"oncogene, TSG"
+AR	oncogene
+ARHGAP26	"TSG, fusion"
+ARHGEF12	"TSG, fusion"
+ARID1A	"TSG, fusion"
+ARID1B	TSG
+ARID2	TSG
+ARNT	"oncogene, TSG, fusion"
+ASPSCR1	fusion
+ASXL1	TSG
+ATF1	"oncogene, fusion"
+ATIC	fusion
+ATM	TSG
+ATP1A1	"oncogene, TSG"
+ATP2B3	TSG
+ATR	TSG
+ATRX	TSG
+AXIN1	TSG
+AXIN2	TSG
+B2M	TSG
+BAP1	TSG
+BCL10	"TSG, fusion"
+BCL11A	"oncogene, fusion"
+BCL11B	"oncogene, TSG, fusion"
+BCL2	"oncogene, fusion"
+BCL3	"oncogene, fusion"
+BCL6	"oncogene, fusion"
+BCL7A	fusion
+BCL9	"oncogene, fusion"
+BCL9L	"oncogene, TSG"
+BCOR	"TSG, fusion"
+BCORL1	"oncogene, TSG"
+BCR	fusion
+BIRC3	"oncogene, TSG, fusion"
+BLM	TSG
+BMPR1A	"oncogene, TSG"
+BRAF	"oncogene, fusion"
+BRCA1	TSG
+BRCA2	TSG
+BRD3	"oncogene, fusion"
+BRD4	"oncogene, fusion"
+BRIP1	TSG
+BTG1	"TSG, fusion"
+BTK	"oncogene, TSG"
+BUB1B	TSG
+C2orf44	fusion
+CACNA1D	oncogene
+CALR	oncogene
+CAMTA1	"TSG, fusion"
+CANT1	fusion
+CARD11	oncogene
+CARS	"TSG, fusion"
+CASC5	"TSG, fusion"
+CASP8	TSG
+CBFA2T3	"TSG, fusion"
+CBFB	"TSG, fusion"
+CBL	"oncogene, TSG, fusion"
+CBLB	TSG
+CBLC	"oncogene, TSG"
+CCDC6	"TSG, fusion"
+CCNB1IP1	"TSG, fusion"
+CCND1	"oncogene, fusion"
+CCND2	"oncogene, fusion"
+CCND3	"oncogene, fusion"
+CCNE1	oncogene
+CD274	"TSG, fusion"
+CD74	"oncogene, fusion"
+CD79A	oncogene
+CD79B	oncogene
+CDC73	TSG
+CDH1	TSG
+CDH11	"TSG, fusion"
+CDK12	TSG
+CDK4	oncogene
+CDK6	"oncogene, fusion"
+CDKN1B	TSG
+CDKN2A	TSG
+CDKN2C	TSG
+CDX2	"TSG, fusion"
+CEBPA	TSG
+CHCHD7	fusion
+CHD4	oncogene
+CHEK2	TSG
+CIC	"oncogene, TSG, fusion"
+CIITA	"TSG, fusion"
+CLIP1	fusion
+CLTC	"TSG, fusion"
+CLTCL1	"TSG, fusion"
+CNBP	"TSG, fusion"
+CNOT3	TSG
+CNTRL	fusion
+COL1A1	fusion
+COL2A1	fusion
+CREB1	"oncogene, fusion"
+CREB3L1	"TSG, fusion"
+CREB3L2	"oncogene, fusion"
+CREBBP	"oncogene, TSG, fusion"
+CRLF2	"oncogene, fusion"
+CRTC1	"oncogene, fusion"
+CRTC3	fusion
+CSF3R	oncogene
+CTCF	TSG
+CTNNB1	"oncogene, fusion"
+CUX1	"oncogene, TSG"
+CXCR4	oncogene
+CYLD	TSG
+DAXX	"oncogene, TSG"
+DCTN1	fusion
+DDB2	"oncogene, TSG"
+DDIT3	"oncogene, fusion"
+DDR2	oncogene
+DDX10	"TSG, fusion"
+DDX3X	TSG
+DDX5	"oncogene, fusion"
+DDX6	"oncogene, fusion"
+DEK	"oncogene, fusion"
+DICER1	TSG
+DNAJB1	fusion
+DNM2	TSG
+DNMT3A	TSG
+DROSHA	TSG
+EBF1	"TSG, fusion"
+EGFR	oncogene
+EIF3E	"TSG, fusion"
+EIF4A2	fusion
+ELF4	"oncogene, TSG, fusion"
+ELK4	"oncogene, fusion"
+ELL	"TSG, fusion"
+EML4	fusion
+EP300	"TSG, fusion"
+EPAS1	"oncogene, TSG"
+EPS15	"TSG, fusion"
+ERBB2	"oncogene, fusion"
+ERBB3	oncogene
+ERBB4	"oncogene, TSG"
+ERC1	fusion
+ERCC2	TSG
+ERCC3	TSG
+ERCC4	TSG
+ERCC5	TSG
+ERG	"oncogene, fusion"
+ESR1	"oncogene, TSG, fusion"
+ETNK1	TSG
+ETV1	"oncogene, fusion"
+ETV4	"oncogene, fusion"
+ETV5	"oncogene, fusion"
+ETV6	"TSG, fusion"
+EWSR1	"oncogene, fusion"
+EXT1	"TSG, fusion"
+EXT2	TSG
+EZH2	"oncogene, TSG"
+EZR	fusion
+FAM46C	TSG
+FANCA	TSG
+FANCC	TSG
+FANCD2	TSG
+FANCE	TSG
+FANCF	TSG
+FANCG	TSG
+FAS	TSG
+FAT1	TSG
+FAT4	TSG
+FBXO11	TSG
+FBXW7	TSG
+FCGR2B	"oncogene, fusion"
+FCRL4	"oncogene, fusion"
+FES	"oncogene, TSG"
+FEV	"oncogene, fusion"
+FGFR1	"oncogene, fusion"
+FGFR1OP	fusion
+FGFR2	"oncogene, fusion"
+FGFR3	"oncogene, fusion"
+FGFR4	oncogene
+FH	TSG
+FHIT	"TSG, fusion"
+FIP1L1	fusion
+FLCN	TSG
+FLI1	"oncogene, fusion"
+FLT3	oncogene
+FLT4	oncogene
+FOXA1	oncogene
+FOXL2	"oncogene, TSG"
+FOXO1	"oncogene, TSG, fusion"
+FOXO3	"oncogene, TSG, fusion"
+FOXO4	"oncogene, TSG, fusion"
+FOXP1	"oncogene, fusion"
+FSTL3	"oncogene, fusion"
+FUBP1	oncogene
+FUS	"TSG, fusion"
+GAS7	fusion
+GATA1	"oncogene, TSG"
+GATA2	oncogene
+GATA3	"oncogene, TSG"
+GNA11	oncogene
+GNAQ	oncogene
+GNAS	oncogene
+GOLGA5	fusion
+GOPC	fusion
+GPC3	"oncogene, TSG"
+GPHN	fusion
+GRIN2A	TSG
+H3F3A	oncogene
+H3F3B	oncogene
+HERPUD1	fusion
+HEY1	"oncogene, fusion"
+HIF1A	oncogene
+HIP1	"oncogene, fusion"
+HIST1H3B	oncogene
+HIST1H4I	fusion
+HLA-A	fusion
+HLF	"oncogene, fusion"
+HMGA1	"oncogene, fusion"
+HMGA2	"oncogene, fusion"
+HNF1A	TSG
+HNRNPA2B1	"oncogene, fusion"
+HOOK3	fusion
+HOXA11	"oncogene, TSG, fusion"
+HOXA13	"oncogene, fusion"
+HOXA9	"oncogene, TSG, fusion"
+HOXC11	"oncogene, fusion"
+HOXC13	"oncogene, fusion"
+HOXD11	"oncogene, fusion"
+HOXD13	"oncogene, fusion"
+HRAS	oncogene
+HSP90AA1	fusion
+HSP90AB1	fusion
+IDH1	oncogene
+IDH2	oncogene
+IGH	fusion
+IGK	fusion
+IGL	fusion
+IKBKB	oncogene
+IKZF1	"TSG, fusion"
+IL2	fusion
+IL21R	fusion
+IL6ST	oncogene
+IL7R	oncogene
+IRF4	"oncogene, TSG, fusion"
+ITK	fusion
+JAK1	"oncogene, TSG"
+JAK2	"oncogene, fusion"
+JAK3	oncogene
+JUN	oncogene
+KAT6A	"oncogene, fusion"
+KAT6B	"TSG, fusion"
+KCNJ5	oncogene
+KDM5A	"oncogene, fusion"
+KDM5C	TSG
+KDM6A	"oncogene, TSG"
+KDR	oncogene
+KDSR	fusion
+KEAP1	TSG
+KIF5B	fusion
+KIT	oncogene
+KLF4	"oncogene, TSG"
+KLF6	TSG
+KLK2	fusion
+KMT2A	"oncogene, fusion"
+KMT2C	TSG
+KMT2D	"oncogene, TSG"
+KRAS	oncogene
+KTN1	fusion
+LASP1	fusion
+LCK	"oncogene, fusion"
+LEF1	"oncogene, TSG"
+LIFR	fusion
+LMNA	fusion
+LMO1	"oncogene, fusion"
+LMO2	"oncogene, fusion"
+LPP	"oncogene, fusion"
+LRIG3	"TSG, fusion"
+LRP1B	TSG
+LYL1	"oncogene, fusion"
+LZTR1	TSG
+MAF	"oncogene, fusion"
+MAFB	"oncogene, fusion"
+MALT1	"oncogene, fusion"
+MAML2	"oncogene, fusion"
+MAP2K1	oncogene
+MAP2K2	oncogene
+MAP2K4	"oncogene, TSG"
+MAP3K1	"oncogene, TSG"
+MAP3K13	"oncogene, TSG"
+MAPK1	oncogene
+MAX	TSG
+MDM2	oncogene
+MDM4	oncogene
+MECOM	"oncogene, fusion"
+MED12	TSG
+MEN1	TSG
+MET	oncogene
+MITF	oncogene
+MKL1	"oncogene, TSG, fusion"
+MLF1	"TSG, fusion"
+MLH1	TSG
+MLLT1	fusion
+MLLT10	"oncogene, fusion"
+MLLT11	fusion
+MLLT3	fusion
+MLLT4	"oncogene, fusion"
+MLLT6	fusion
+MN1	"oncogene, fusion"
+MPL	oncogene
+MSH2	TSG
+MSH6	TSG
+MSI2	"oncogene, fusion"
+MSN	fusion
+MTCP1	"oncogene, fusion"
+MTOR	oncogene
+MUC1	fusion
+MUTYH	TSG
+MYB	"oncogene, fusion"
+MYC	"oncogene, fusion"
+MYCL	oncogene
+MYCN	oncogene
+MYD88	oncogene
+MYH11	fusion
+MYH9	"TSG, fusion"
+MYO5A	fusion
+MYOD1	oncogene
+NAB2	"TSG, fusion"
+NBN	TSG
+NCOA1	fusion
+NCOA2	"oncogene, fusion"
+NCOA4	"TSG, fusion"
+NCOR1	TSG
+NCOR2	TSG
+NDRG1	"TSG, fusion"
+NF1	"TSG, fusion"
+NF2	TSG
+NFATC2	"oncogene, fusion"
+NFE2L2	"oncogene, TSG"
+NFIB	fusion
+NFKB2	"oncogene, TSG, fusion"
+NFKBIE	TSG
+NIN	fusion
+NKX2-1	"oncogene, TSG"
+NONO	fusion
+NOTCH1	"oncogene, TSG, fusion"
+NOTCH2	"oncogene, TSG"
+NPM1	"oncogene, fusion"
+NR4A3	"oncogene, fusion"
+NRAS	oncogene
+NRG1	"TSG, fusion"
+NSD1	fusion
+NT5C2	oncogene
+NTRK1	"oncogene, TSG, fusion"
+NTRK3	"oncogene, fusion"
+NUMA1	fusion
+NUP214	fusion
+NUP98	"oncogene, fusion"
+NUTM1	"oncogene, fusion"
+NUTM2A	fusion
+NUTM2B	fusion
+OLIG2	"oncogene, fusion"
+P2RY8	"oncogene, fusion"
+PAFAH1B2	fusion
+PALB2	TSG
+PAX3	"oncogene, fusion"
+PAX5	"oncogene, TSG, fusion"
+PAX7	fusion
+PAX8	fusion
+PBRM1	TSG
+PBX1	"oncogene, fusion"
+PCM1	fusion
+PDCD1LG2	"oncogene, fusion"
+PDE4DIP	fusion
+PDGFB	"oncogene, fusion"
+PDGFRA	"oncogene, fusion"
+PDGFRB	"oncogene, fusion"
+PER1	"TSG, fusion"
+PHF6	TSG
+PHOX2B	TSG
+PICALM	fusion
+PIK3CA	oncogene
+PIK3R1	TSG
+PIM1	"oncogene, fusion"
+PLAG1	"oncogene, fusion"
+PLCG1	"oncogene, fusion"
+PML	"TSG, fusion"
+PMS2	TSG
+POLE	TSG
+POT1	TSG
+POU2AF1	"oncogene, fusion"
+POU5F1	"oncogene, fusion"
+PPARG	"TSG, fusion"
+PPFIBP1	fusion
+PPM1D	oncogene
+PPP2R1A	TSG
+PPP6C	TSG
+PRCC	fusion
+PRDM1	TSG
+PRDM16	"oncogene, fusion"
+PREX2	oncogene
+PRF1	TSG
+PRKACA	oncogene
+PRKAR1A	"oncogene, TSG, fusion"
+PRRX1	fusion
+PSIP1	"oncogene, fusion"
+PTCH1	TSG
+PTEN	TSG
+PTK6	"oncogene, TSG"
+PTPN11	oncogene
+PTPN13	TSG
+PTPRB	TSG
+PTPRC	TSG
+PTPRK	"TSG, fusion"
+PTPRT	TSG
+QKI	"oncogene, TSG"
+RABEP1	fusion
+RAC1	oncogene
+RAD21	"oncogene, TSG"
+RAD51B	"TSG, fusion"
+RAF1	"oncogene, fusion"
+RANBP2	"TSG, fusion"
+RAP1GDS1	"oncogene, fusion"
+RARA	"oncogene, fusion"
+RB1	TSG
+RBM10	TSG
+RBM15	fusion
+RECQL4	"oncogene, TSG"
+REL	oncogene
+RET	"oncogene, fusion"
+RHOA	"oncogene, TSG"
+RHOH	"TSG, fusion"
+RMI2	"TSG, fusion"
+RNF213	fusion
+RNF43	TSG
+ROS1	"oncogene, fusion"
+RPL10	TSG
+RPL22	"TSG, fusion"
+RPL5	TSG
+RPN1	fusion
+RSPO2	"TSG, fusion"
+RSPO3	"oncogene, fusion"
+RUNX1	"oncogene, TSG, fusion"
+RUNX1T1	"oncogene, TSG, fusion"
+SALL4	oncogene
+SBDS	TSG
+SDC4	fusion
+SDHA	TSG
+SDHAF2	TSG
+SDHB	TSG
+SDHC	TSG
+SDHD	TSG
+SET	"oncogene, fusion"
+SETBP1	"oncogene, fusion"
+SETD2	TSG
+SF3B1	oncogene
+SFPQ	"TSG, fusion"
+SFRP4	TSG
+SH2B3	TSG
+SH3GL1	"oncogene, fusion"
+SLC34A2	"TSG, fusion"
+SLC45A3	fusion
+SMAD2	TSG
+SMAD3	TSG
+SMAD4	TSG
+SMARCA4	TSG
+SMARCB1	TSG
+SMARCD1	TSG
+SMARCE1	TSG
+SMO	oncogene
+SND1	"oncogene, fusion"
+SOCS1	TSG
+SOX2	oncogene
+SPEN	TSG
+SPOP	TSG
+SRC	oncogene
+SRSF2	oncogene
+SRSF3	"oncogene, fusion"
+SS18	fusion
+SS18L1	fusion
+SSX1	"oncogene, fusion"
+SSX2	"oncogene, fusion"
+SSX4	"oncogene, fusion"
+STAG2	TSG
+STAT3	oncogene
+STAT5B	"oncogene, TSG, fusion"
+STAT6	"oncogene, fusion"
+STIL	"oncogene, fusion"
+STK11	TSG
+STRN	fusion
+SUFU	TSG
+SUZ12	"oncogene, TSG, fusion"
+SYK	"oncogene, fusion"
+TAF15	"oncogene, fusion"
+TAL1	"oncogene, fusion"
+TAL2	"oncogene, fusion"
+TBL1XR1	"oncogene, TSG, fusion"
+TBX3	"oncogene, TSG"
+TCEA1	fusion
+TCF12	fusion
+TCF3	"oncogene, TSG, fusion"
+TCF7L2	"oncogene, fusion"
+TCL1A	"oncogene, fusion"
+TERT	"oncogene, TSG"
+TET1	"oncogene, TSG, fusion"
+TET2	TSG
+TFE3	"oncogene, fusion"
+TFEB	"oncogene, fusion"
+TFG	fusion
+TGFBR2	TSG
+TLX1	"oncogene, fusion"
+TLX3	"oncogene, fusion"
+TMEM127	TSG
+TMPRSS2	fusion
+TNFAIP3	TSG
+TNFRSF14	TSG
+TNFRSF17	"oncogene, fusion"
+TOP1	fusion
+TP53	"oncogene, TSG, fusion"
+TP63	"oncogene, TSG"
+TPM3	"TSG, fusion"
+TPM4	fusion
+TPR	fusion
+TRA	fusion
+TRAF7	TSG
+TRB	fusion
+TRD	fusion
+TRIM24	"oncogene, TSG, fusion"
+TRIM27	"oncogene, fusion"
+TRIM33	"TSG, fusion"
+TRIP11	fusion
+TRRAP	oncogene
+TSC1	TSG
+TSC2	TSG
+TSHR	oncogene
+U2AF1	oncogene
+UBR5	TSG
+USP6	"oncogene, fusion"
+USP8	oncogene
+VHL	TSG
+WAS	oncogene
+WHSC1	"oncogene, fusion"
+WHSC1L1	"oncogene, fusion"
+WIF1	"TSG, fusion"
+WRN	TSG
+WT1	"oncogene, TSG, fusion"
+WWTR1	"oncogene, fusion"
+XPA	TSG
+XPC	TSG
+XPO1	oncogene
+YWHAE	"TSG, fusion"
+ZBTB16	"TSG, fusion"
+ZFHX3	TSG
+ZNF198	fusion
+ZNF278	"TSG, fusion"
+ZNF331	"TSG, fusion"
+ZNF384	fusion
+ZNF521	"oncogene, fusion"
+ZRSR2	TSG
