@@ -322,6 +322,11 @@ temp <- AnnotationDbi::select(org.Hs.eg.db,plot.table$gene_name,'ENTREZID',keyty
 plot.table <- merge(plot.table, temp,by.x = 'gene_name',by.y ='SYMBOL',all.x = F,all.y =F) 
 plot.table <- merge(plot.table,exon.count,by = 'ENTREZID',all.x = T, all.y = F)
 
+temp <- plot.table
+temp$exon.n[temp$exon.n >= 30] <- 30
+temp <- temp[gene_type == 'protein_coding',.(.N),by = .(exon.n,onco)]
+temp <- 
+
 
 plot.table[exon.n > 30, exon.n := 30]
 plot.table <- plot.table[!is.na(exon.n),]
@@ -512,3 +517,16 @@ p + geom_bar(stat = 'identity') + geom_text(aes(y=101,label = sum), vjust = 0.1)
                               'Genes near \n NC enhancer',
                               'Genes near \n Decrease enhancer'))
 ggsave(filename = 'figures/Genes_targeted_by_enhancer_ChiAPET.jpg', width = 8, height = 8, dpi = 150, units = 'in')
+
+
+# GO_analysis -------------------------------------------------------------
+
+head(res.deseq2)
+write.csv(res.deseq2, file = 'res.deseq2.csv')
+
+# Onco_gene_analysis ------------------------------------------------------
+
+oncogenes <- fread('coordinates/Cosmic.CancerGeneCensus.all.gene.anno.tsv')
+res.deseq2$onco <- F
+res.deseq2$onco[res.deseq2$gene_name %in% oncogenes$`Gene Symbol`] <- 'T'
+temp <- res.deseq2[gene_type == 'protein_coding',.(.N), by = .(regulation,onco)]
