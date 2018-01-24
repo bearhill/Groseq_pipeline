@@ -506,9 +506,9 @@ plot.table$sum <- c(rep(sum(plot.table$N[1:3]),3),
 plot.table[,Perc:= N/sum]
 
 p <- ggplot(plot.table, aes(x = e.regulation, y = Perc*100, fill = p.regulation))
-p + geom_bar(stat = 'identity') + geom_text(aes(y=101,label = sum), vjust = 0.1)+theme_xf +
+p + geom_bar(stat = 'identity', width = 0.5) + geom_text(aes(y=101,label = sum), vjust = 0.1)+theme_xf +
   labs(x = NULL, y = 'percentage', title = 'Change of gene targeted by enhancers') +
-  scale_x_discrete(labels = c('Genes targeted \n increase enhancer',
-                              'Genes near \n NC enhancer',
-                              'Genes near \n Decrease enhancer'))
+  scale_x_discrete(labels = c('Genes targeted by \n increase enhancer',
+                              'Genes targeted by \n NC enhancer',
+                              'Genes targeted by \n Decrease enhancer'))
 ggsave(filename = 'figures/Genes_targeted_by_enhancer_ChiAPET.jpg', width = 8, height = 8, dpi = 150, units = 'in')
