@@ -19,7 +19,7 @@ for(i in list.files('r.func/')){
 }
 
 # Change transcripts to GR -------------------------------------------------
-transcripts.gr <- GTF2GR('coordinates/Hela.transcripts.all.gtf') %>% sort()
+transcripts.gr <- GTF2GR('coordinates/Hela.transcripts.all.gtf') 
 
 # Infomation from raw counttable -----------------------------------------------------
 counttable <- fread(counttable.raw.file)
